@@ -1,0 +1,157 @@
+\documentclass[9pt]{article}
+
+\usepackage{fitch-jk, joyce-math, multicol}
+%\usepackage[top=1in, left=1in., right=1in., nohead, nofoot]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Note on the following definitions: I was able to redefine
+% \not, \implies, \iff, and \& because they are simply
+% symbols, albeit not exactly the ones I want.
+% 
+% I used \aand (ampersand-and) and \vor (v-or) for
+% conjunction and disjunction. I would have preferred to use
+% \and and \or, but they turn out to be essential logical
+% operators in Latex: Redefining them will crash
+% environments like equation and equation*. I repeat: DO NOT
+% redefine \and and \or, tempting though it may be. 
+
+\renewcommand{\not}{\sim}
+\renewcommand{\implies}{\; \supset \;}
+\renewcommand{\iff}{\; \equiv \;}
+\newcommand{\aand}{\; \& \;}
+\newcommand{\vor}{\; \vee \;}
+\newcommand{\sameas}{\; :: \;}
+
+\newcommand{\vsep}{\vspace{.5cm}}
+\newcommand{\arrowhead}{$\triangleright$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\begin{document}
+\setlength{\parskip}{.1cm}
+\pagestyle{empty}
+
+\begin{centering}
+  {\LARGE \bf Derivation Rules of SD+}
+
+  \section{Rules of Inference}
+
+  All the Derivation Rules of SD \par
+  {\sc and}
+  
+  \begin{multicols}{2}
+    \textbf{Modus Tollens (MT)}
+    \[\begin{fitch}
+      \ftag{}{\fa P \implies Q}\\
+      \ftag{}{\fa \not Q}\\
+      \ftag{\arrowhead}{\fa \not P}
+    \end{fitch}\]
+    
+    \begin{tabular}{ccc}
+      \multicolumn{3}{c}{\bf Paradoxes of Material Implication (PMI)}\\
+      \begin{minipage}{0.35\linewidth}
+        \[\begin{fitch}
+          \ftag{}{\fa \not P}\\
+          \ftag{\arrowhead}{\fa P \implies Q}
+        \end{fitch}\]
+      \end{minipage}
+      &\quad {\sc or} \quad&
+      \begin{minipage}{0.35\linewidth}
+        \[\begin{fitch}
+          \ftag{}{\fa Q}\\
+          \ftag{\arrowhead}{\fa P \implies Q}
+        \end{fitch} \]
+      \end{minipage}
+    \end{tabular}
+    
+    \textbf{Hypothetical Syllogism (HS)}
+    \[\begin{fitch}
+      \ftag{}{\fa P \implies Q}\\
+      \ftag{}{\fa Q \implies R}\\
+      \ftag{\arrowhead}{\fa P \implies R}
+    \end{fitch}\]
+    
+    \begin{tabular}{c r c}
+      \multicolumn{3}{c}{\bf Disjunctive Syllogism (DS)}\\
+      \begin{minipage}{0.35\linewidth}
+        \[\begin{fitch}
+          \ftag{}{\fa P \vor Q}\\
+          \ftag{}{\fa \not P}\\
+          \ftag{\arrowhead}{\fa Q}
+        \end{fitch}\]
+      \end{minipage}
+      &\quad {\sc or} \quad&
+      \begin{minipage}{0.35\linewidth}
+        \[\begin{fitch}
+          \ftag{}{\fa P \vor Q}\\
+          \ftag{}{\fa \not Q}\\
+          \ftag{\arrowhead}{\fa P}
+        \end{fitch}\]
+      \end{minipage}
+    \end{tabular}
+  \end{multicols}
+  
+  \section{Rules of Replacement}
+  \begin{multicols}{2}
+    \textbf{Commutation (Com)} \par
+    $P \aand Q \sameas Q \aand P$ \par
+    $P \vor Q \sameas Q \vor P$
+    
+    \vsep
+
+    \textbf{Implication (Impl)} \par
+    $P \implies Q \sameas \not P \vor Q$
+
+    \vsep
+
+    \textbf{DeMorgan (DeM)} \par
+    $\not (P \aand Q) \sameas \not P \vor \not Q$ \par
+    $\not (P \vor Q) \sameas \not P \aand \not Q$
+
+    \vsep
+
+    \textbf{Transposition (Trans)} \par
+    $P \implies Q \sameas \not Q \implies \not P$
+
+    \vsep
+
+    \textbf{Distribution (Dist)} \par
+    $P \aand (Q \vor R) \sameas (P \aand Q) \vor (P \aand R)$ \par
+    $P \vor (Q \aand R) \sameas (P \vor Q) \aand (P \vor R)$
+
+    \vsep
+
+    \textbf{Association (Assoc)} \par
+    $P \aand (Q \aand R) \sameas (P \aand Q) \aand R$ \par
+    $P \vor (Q \vor R) \sameas (P \vor Q) \vor R$
+
+    \vsep
+
+    \textbf{Double Negation (DN)} \par
+    $P \sameas \not \not P$
+
+    \vsep
+
+    \textbf{Idempotence (Idem)} \par
+    $P \sameas P \aand P$ \par
+    $P \sameas P \vor P$
+
+    \vsep
+
+    \textbf{Exportation (Exp)} \par
+    $P \implies (Q \implies R) \sameas (P \aand Q) \implies
+    R$
+
+    \vsep
+
+    \textbf{Equivalence (Equiv)} \par
+    $P \equiv Q \sameas (P \implies Q) \aand (Q \implies
+    P)$ \par
+    $P \equiv Q \sameas (P \aand Q) \vor (\not P \aand \not
+    Q)$
+  \end{multicols}
+
+  \textbf{Conditional Negation (CN)} \par
+  $\not (P \implies Q) \sameas P \aand \not Q$
+
+\end{centering}
+\end{document}
